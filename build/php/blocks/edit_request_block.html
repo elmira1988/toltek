@@ -1,0 +1,170 @@
+<!-- Modal Модальное окно для редактирования запроса -->
+<div class="modal fade bs-example-modal-lg" id="edit_modal_block" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" id="exampleModalLongTitle">Редактировать запись</h4>
+      </div>
+
+      <div class="modal-body">
+
+        <form id="edit_request"> 
+          <input type="hidden" name="id_requests" value="">
+        <div class="x_panel">
+          <div class="x_title">
+            Данные ребенка
+          </div>
+
+          <div class="x_content">
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                  <input type="text" class="form-control has-feedback-left" required="required" name="surname" placeholder="Фамилия">
+                  <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+              </div>
+
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                <input type="text" class="form-control has-feedback-left" required="required" name="name" placeholder="Имя">
+                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+              </div>
+
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                <input type="text" class="form-control has-feedback-left" name="patronymic" placeholder="Отчество">
+                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+              </div>
+
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                <input type="date" class="date form-control has-feedback-left"  name="birth" required="required"  placeholder="Дата рождения" style="padding-right: 5px;">
+                <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+              </div>
+
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" style="padding: 0px;text-align: left; padding-top: 10px;">Класс</label>
+                  <div class="col-md-9 col-sm-9 col-xs-12" style="padding-right: 0px;">
+                    <select class="select2_single form-control" tabindex="-1" name="class_number" onchange="change_courses(this)">
+                       <?php 
+                          for ($i=1;$i<=10;$i++)
+                          {
+                            echo '<option value="'.$i.'">'.$i.'</option>';
+                          }
+                        ?>
+                    </select>
+                  </div>
+              </div>
+
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group select_class">
+                 <label class="control-label col-md-6 col-sm-6 col-xs-6" style="padding: 0px;text-align: left; padding-top: 10px;">Посещал ранее</label>
+                 <div class="col-md-6 col-sm-6 col-xs-6" style="padding-right: 0px;">
+                    <p>                                
+                    <div>
+                      <span>да</span> <input type="radio" class="flat" name="attend" value="1" />
+                    </div>
+
+                    <div>
+                      <span>нет</span> <input type="radio" class="flat" name="attend" value="0" />
+                    </div>
+                  </p>  
+                  </div>
+              </div>
+          </div><!--x_content-->
+         </div><!--x_panel-->
+
+         <div class="x_panel">
+           <div class="x_title">
+             Данные представителя
+           </div>
+           <div class="x_content">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                    <input type="text" class="form-control has-feedback-left" required="required" name="parent" placeholder="Ф.И.О. полностью">
+                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                  <input type="text" class="form-control has-feedback-left" placeholder="Телефон" required="" name="phone" data-parsley-pattern="8\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}" data-inputmask="'mask' : '8 (999) 999-99-99'">
+                  <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                  <input type="email" id="email" name="email" required="required" class="form-control has-feedback-left" id="inputSuccess3" placeholder="Email">
+                  <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+                </div>
+            </div>
+         </div>
+
+        <div class="x_panel">
+
+           <div class="x_title">
+             Направление/ курс
+           </div>
+
+           <div class="x_content">
+           <!-- Направление - -->
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group multi-select">
+              
+              <div class="has-feedback "> 
+                <input type="text" class="form-control" readonly="readonly" placeholder="Выбрать" id="multi_select_whith_meta">
+                <span class="fa fa fa-bookmark form-control-feedback right" aria-hidden="true"></span>
+                <ul class="parsley-errors-list filled" style="display: none;">
+                    <li class="parsley-pattern">Выберите хотя бы один курс</li>
+                </ul>
+              </div>
+              
+              <ul class="select-block direction-top">
+                      <?php 
+                        //суммируем все направления ШКОЛА+УГЛУБЛЕННОЕ ИЗЧЕНИЕ ПРЕДМЕТОВ
+                        $direction=array_merge(get_all_direction(0),get_all_direction(1));
+
+                        for ($i=0;$i<count($direction);$i++)
+                        {
+                          ?>
+                          <li class="all">
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" id="all" data-id="<?php echo $direction[$i]['id_directions'];?>" value="<?php echo $direction[$i]['id_directions']; ?>"><?php echo $direction[$i]['name_of_directions']; ?>
+                              </label>
+                            </div>
+                          </li>
+                          <?php $courses=get_courses_of_direction($direction[$i]['id_directions']);
+                          for ($k=0;$k<count($courses);$k++)
+                          {
+                            ?>
+                            <li>
+                            <div class="checkbox"> 
+                              <label>
+                                <input type="checkbox" name="id_courses" onchange="add_delete_meta(this,'id_courses')" data-id="<?php echo $direction[$i]['id_directions'];?>" value="<?php echo $courses[$k]['id_courses']; ?>" data-name="<?php echo $courses[$k]['name_of_course']; ?>" data-class_number="<?php echo get_class_number_of_course($courses[$k]['id_courses']);?>"><?php echo $courses[$k]['name_of_course']; ?>
+                              </label>
+                            </div>
+                          </li>
+                            <?php
+                          }
+                        }
+                       ?>  
+                  </ul>
+             
+            </div>
+
+             <div id="meta_block" class="col-lg-8 col-md-8 col-sm-6 col-xs-12 form-group">
+
+             </div>
+          </div>
+        </div>
+
+        <div class="x_panel">
+           <div class="x_title">
+             Комменатрий администратора
+           </div>
+           <textarea style="display:none;" class="form-control" name="note_of_user"></textarea>
+           <div class="x_content">
+            <textarea class="form-control" name="note" style="margin-bottom: 10px;"></textarea>
+           </div>
+         </div>
+
+
+     </form>
+      </div><!-- modal-body-->
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+        <span  class="btn btn-primary" onclick="update_request()">Сохранить изменения</span>
+      </div>
+    </div>
+  </div>
+</div>

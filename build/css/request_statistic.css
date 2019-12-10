@@ -1,0 +1,21 @@
+tr.not_requests
+{
+	background-color: #f5f5f5;
+}
+
+table.table-static tbody>tr:not(.not_requests):not(.footer):hover
+{
+	cursor: pointer;
+	/*background-color: #fff6a9;*/
+	background-color: rgba(38, 185, 154, 0.07);
+}
+
+table.table-static .footer
+{
+	background: rgb(194, 236, 228);
+}
+
+table.table-static thead>tr>th 
+{
+	vertical-align: middle;
+}

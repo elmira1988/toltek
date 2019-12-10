@@ -1,0 +1,356 @@
+<!-- Modal Модальное окно для редактирования данных -->
+<div class="modal fade bs-example-modal-lg" id="edit_modal_block" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" id="exampleModalLongTitle">Редактировать запись</h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <!--form student begin -->
+          <form id="add_student"  class="form-horizontal form-label-left"><!--data-parsley-validate-->
+            
+            <input type="hidden" name="id_students" value="">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              
+              <!--x-panel-->
+              <div class="x_panel">
+                
+                <div class="x_title"><!--x-title-->
+                 Обучающийся
+                  <div class="clearfix"></div>
+                </div>               <!--x-title-->
+               
+
+                 <div class="x_content"><!--x_content-->
+                
+                  <!--photo-block-->
+                  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div id="photo_block">
+                      <div id="myphoto">
+                        <img src="images/people-icon.png"  class="img-responsive">
+                      </div>
+                      
+                      <div id="photo_message" onclick="add_photo_of_user()" style="text-align: center;">
+                        <i class="fa fa-camera" aria-hidden="true" style="margin-right:5px;"></i>
+                        изменить
+                      </div>
+                      <input type="file" name="img_of_user"> 
+                    </div>
+                  </div><!--photo-block-->
+                
+                  <!--Поля студента-->
+                  <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 form-group-h50">
+                    <!--Фамилия-->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                      <input type="text" class="form-control has-feedback-left" required="required" name="surname" placeholder="Фамилия">
+                      <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                    <!--Имя-->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                      <input type="text" class="form-control has-feedback-left" required="required" name="name" placeholder="Имя">
+                      <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                    <!--Отчество-->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                      <input type="text" class="form-control has-feedback-left" name="patronymic" placeholder="Отчество">
+                      <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                    <!--Дата рождения-->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                      <input type="date" class="date form-control has-feedback-left"  name="birth" required="required"  placeholder="Дата рождения" style="padding-right: 5px;">
+                      <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                    <!--Класс-->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" style="padding: 0px;text-align: left; padding-top: 10px;">
+                        Класс
+                      </label>
+                      <div class="col-md-9 col-sm-9 col-xs-12" style="padding-right: 0px;">
+                        <select class="select2_single form-control" tabindex="-1" name="class_number" onchange="change_group(this)">
+                           <?php 
+                              for ($i=1;$i<=10;$i++)
+                              {
+                                echo '<option value="'.$i.'">'.$i.'</option>';
+                              }
+                            ?>
+                        </select>
+                      </div>
+                    </div>
+
+                    <!--Пол-->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group select_class">
+                       <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-12" style="padding: 0px;text-align: right; padding-top: 10px;">
+                       Пол
+                       </label>
+                       <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="padding-right: 0px;">
+                          <p>                                
+                            <div>
+                              <span>М</span> <input type="radio" class="flat" name="gender" value="1" checked/>
+                            </div>
+
+                            <div>
+                              <span>Ж</span> <input type="radio" class="flat" name="gender" value="0" />
+                            </div>
+                          </p>  
+                        </div>
+                    </div>
+
+                    <!--Тип документа-->                  
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group">
+                      <select class="select2_single form-control" name="type_of_doc" onchange="change_doc(this)">
+                        <?php 
+                          $type_of_doc=get_type_of_doc();
+
+                          for ($i=0;$i<count($type_of_doc);$i++)
+                          {
+                            echo '<option value="'.$type_of_doc[$i]['id_type_of_doc'].'">'.$type_of_doc[$i]['doc'].'</option>';
+                          }
+                         ?>
+                      </select>
+                    </div>
+
+                  <!--Серия-->
+                  <div class="type_1 col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group">
+                      <input type="text" class=" form-control" name="series" required="required"  placeholder="серия">
+                  </div> 
+
+                  <div class="type_2 display_none col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group">
+                      <input type="text" class=" form-control " name="series" placeholder="серия" data-parsley-type="digits" data-parsley-length="[4,4]" data-inputmask="'mask' : '9999'" >
+                  </div> 
+
+                  <!--Номер-->
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group">
+                    <input type="text" class="form-control" name="number" required="required" placeholder="номер" data-parsley-type="digits" data-parsley-length="[6,6]" data-inputmask="'mask' : '999999'">
+                  </div> 
+
+                   <!--Дата выдачи паспорта и кем выдан-->
+                  <div class="type_2 display_none col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group">
+                      <input type="date" class="date form-control has-feedback-left"  name="passport_date"  placeholder="Дата выдачи" style="padding-right: 5px;" tytle="дата выдачи паспорта">
+                      <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                  </div> 
+
+                  <div class="type_2 display_none col-lg-8 col-md-8 col-sm-6 col-xs-12 form-group">
+                      <input type="text" class=" form-control " name="passport_who" placeholder="кем выдан" >
+                  </div> 
+
+                   <!--Телефон-->
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                    <input type="text" class="form-control has-feedback-left" name="phone" required="required" placeholder="Телефон" data-parsley-pattern="8\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}" data-inputmask="'mask' : '8 (999) 999-99-99'">
+                    <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+                  </div>
+
+                  <!--Адрес-->
+                   <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 form-group has-feedback">
+                    <input type="text" class="form-control has-feedback-left" name="adress" required="required"  placeholder="Адрес">
+                    <span class="fa fa-building-o form-control-feedback left" aria-hidden="true"></span>
+                  </div>
+               
+                  <!--Группа
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group multi-select">
+
+                    <input id="multi_select_whith_meta" type="text" class="form-control" readonly="readonly" placeholder="Выбрать группу" >
+
+                    <ul class="select-block direction-top">
+                      <?php 
+                        //суммируем все направления ШКОЛЫ+УГЛУБЛЕННОЕ ИЗЧЕНИЕ ПРЕДМЕТОВ
+                        $direction=array_merge(get_all_direction(0),get_all_direction(1));
+
+                        for ($i=0;$i<count($direction);$i++)
+                        {
+                          $groups=get_groups(array("id_directions" => array($direction[$i]["id_directions"])));
+                           $add=""; if (count($groups)==0) $add=" (нет групп)";
+                       ?>
+                      <li class="all">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" id="all" data-id="<?php echo $direction[$i]['id_directions'];?>" value="<?php echo $direction[$i]['id_directions']; ?>"><?php echo $direction[$i]['name_of_directions'].$add; ?>
+                          </label>
+                        </div>
+                      </li>
+                      <?php 
+                      for ($k=0;$k<count($groups);$k++)
+                      {
+                      ?>
+                      <li>
+                        <div class="checkbox"> 
+                          <label> 
+                            <input type="checkbox" name="id_groups" onchange="add_delete_meta(this,'id_groups')" data-id="<?php echo $direction[$i]['id_directions'];?>" value="<?php echo $groups[$k]['id_groups']; ?>" data-class_number="<?php echo get_class_number_of_course($groups[$k]['id_courses']);?>" data-name="<?php echo $groups[$k]['name_of_group']; ?>"><?php echo $groups[$k]['name_of_group'].' <small> - <i>'.$groups[$k]['name_of_course'].'</i></small>'; ?>
+                          </label> 
+                        </div> 
+                      </li>
+                        <?php
+                      }
+                    }
+                   ?>  
+                  </ul>
+                  </div><!--Группа-->
+                  
+                  
+                  <!--Мета-блок
+                  <div id="meta_block" class="col-lg-8 col-md-8 col-sm-6 col-xs-12 form-group"></div>
+                  -->
+                </div>
+                <!--Поля студента-->                
+            </div><!--x_content-->
+            </div> <!--x-panel-->
+          </div>
+       
+          </form> <!--form student end -->
+
+          
+          <div class="col-lg-12 col-md-12 col-ms-12 col-xs-12">
+            <div id="parents"><!--parents - блок для представителей -->
+              
+              <div id="parents_block" class="x_panel"><!--Дублируемый блок представителя-->
+                
+                <!--from .add_parent-->
+                <form class="add_parent form-horizontal form-label-left">
+                  
+                  <!--x_title-->
+                  <div class="x_title">
+                    Представитель
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link invisible"><i class="fa fa-chevron-up"></i></a></li>
+                      <li><a class="close-link invisible"><i class="fa fa-close"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div><!--x_title-->
+
+                  <!--x_content-->
+                  <div class="x_content form-group-h50">
+
+                      <div class="row">                      
+                      <!--Фамилия (представитель)-->                    
+                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control has-feedback-left" name="parent_surname" required="required"  placeholder="Фамилия">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                      </div>
+
+                      <!--Имя (представитель)-->
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control has-feedback-left" name="parent_name" required="required" placeholder="Имя">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                      </div>
+
+                      <!--Отчество (представитель)-->
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control has-feedback-left" name="parent_patronymic" placeholder="Отчество">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                      </div>
+
+                      <!--Родствееные связи (представитель)-->
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 form-group has-feedback">
+                        <select class="select2_single form-control" name="parent_id_kinship">
+                          <?php  
+                            $kinship=get_kinship();
+
+                            for ($i=0;$i<count($kinship);$i++)
+                            {
+                              echo "<option value='".$kinship[$i]['id_kinship']."'>".$kinship[$i]['kinship']."</option>";
+                            }
+                          ?>
+                        </select>
+                      </div>
+
+                      <!--Дата рождения (представитель)-->
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 form-group has-feedback item form-group"> 
+                         <input type="date" class="date form-control has-feedback-left"  name="parent_birth"  placeholder="Дата рождения" style="padding-right: 5px;" tytle="дата рождения">
+                          <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                      </div>
+
+                      <!--Телефон (представитель)-->
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control has-feedback-left" name="parent_phone" required="required"  placeholder="Телефон" data-parsley-pattern="8\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}" data-inputmask="'mask' : '8 (999) 999-99-99'">
+                        <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+                      </div>
+
+                      <!--Email (представитель)-->
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 form-group has-feedback item form-group">
+                        <input id="email"  type="email" class="form-control has-feedback-left"name="parent_email" required="required" placeholder="email" > 
+                        <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+                      </div>
+
+                      <!--Адрес (представитель)-->
+                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control has-feedback-left" name="parent_adress" required="required"  placeholder="Адрес">
+                        <span class="fa fa-building-o form-control-feedback left" aria-hidden="true"></span>
+                      </div>
+                      </div>
+
+                      <div class="row">
+                         <!--Серия и номер паспорта (представитель)-->
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 form-group has-feedback item form-group"> 
+                            <input type="text" class="form-control" name="parent_series_number" required="required"  data-parsley-length="[11,11]" data-inputmask="'mask' : '9999 999999'" placeholder="серия и номер паспорта">  
+                      </div>
+
+                      <!--Дата выдачи паспорта (представитель)-->
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 form-group has-feedback item form-group"> 
+                         <input type="date" class="date form-control has-feedback-left"  name="parent_passport_date"  placeholder="Дата выдачи" style="padding-right: 5px;" tytle="дата выдачи паспорта">
+                          <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>              
+                      </div>
+
+                      <!--Кем выдан паспорт (представитель)-->
+                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control" name="parent_passport_who" required="required"  placeholder="кем выдан паспорт">
+                      </div>
+                      </div>
+                     
+                     <div class="row">
+                      <!--Место работы (представитель)-->
+                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control has-feedback-left" name="parent_place_of_work" placeholder="Место работы" >
+                        <span class="fa fa-gavel form-control-feedback left" aria-hidden="true"></span>
+                      </div>
+
+                      <!--Должность (представитель)-->
+                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control has-feedback-left" name="parent_post" placeholder="Должность" >
+                        <span class="fa fa-gavel form-control-feedback left" aria-hidden="true"></span>
+                      </div>
+                      </div>
+                      
+                  </div> <!--x_content-->
+                </form><!--from .add_parent-->
+              </div><!--x=panel--> 
+
+              <!--добавить представителя--> 
+              <div class="col-lg-12 col-md-12 col-ms-12 col-sm-12" style="margin-bottom: 10px;">
+                 <span  id="add_parent" class="btn btn-default btn-xs pull-right" onclick="clone_parents(this)" title="добавить еще одного представителя">
+                  <i class="fa fa-plus" ></i> добавить 
+                </span> 
+              </div> <!--добавить представителя--> 
+
+            </div><!--parents - блок для представителей -->
+          </div>
+        
+          <div class="col-lg-12 col-md-12 col-ms-12 col-xs-12">
+            <div class="x_panel">
+               <div class="x_title">
+                  Комментарий
+                  <div class="clearfix"></div>
+                </div>
+
+               <div class="x_content">
+                <textarea class="form-control" name="note" style="margin-bottom: 10px;"></textarea>
+               </div>
+            </div>
+          </div>
+          
+          </div>
+      </div><!-- modal-body-->
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+        <span  class="btn btn-primary" onclick="update_request()">Сохранить изменения</span>
+      </div>
+    </div>
+  </div>
+</div>

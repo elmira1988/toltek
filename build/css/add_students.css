@@ -1,0 +1,45 @@
+
+.panel_toolbox
+{
+	min-width: 45px;
+}
+
+#parents
+{
+	padding: 0px!important;
+	padding-top: 10px!important;
+	width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 17px;
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #E6E9ED;
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    column-break-inside: avoid;
+    opacity: 1;
+    -moz-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    -webkit-transition: all .2s ease;
+    -ms-transition: all .2s ease;
+    transition: all .2s ease;
+}
+
+#parents_block.x_panel
+{
+	border: unset;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+}
+
+.alert-info {
+    color: unset;
+    background-color: rgba(26, 187, 156, 0.19);
+    border-color: rgba(26, 187, 156, 0.37);
+}
+
+#selected_courses
+{
+    display: none;
+}
