@@ -1,0 +1,196 @@
+
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div id="filter_panel" class="x_content">
+         <!-- Фамилия - filter begin-->
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 form-group">
+            <label class="control-label">Фамилия</label>
+            <div class="has-feedback multi-select"> 
+              <input type="text" class="form-control" id="surname_select" readonly="readonly" placeholder="Выбрать">
+              <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+
+               <ul class="select-block">
+                    <li class="all">
+                     <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="all"> Все
+                      </label>
+                    </div>
+                    </li>
+                    <?php 
+                      for ($i=0;$i<count($requests);$i++)
+                      {
+                        $name=$requests[$i]['surname'].' '.$requests[$i]['name'].' '.$requests[$i]['patronymic'];
+                        ?>
+                         <li>
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="id_requests" value="<?php echo $requests[$i]['id_requests'];?>" data-name="<?php echo $name;?>"><?php echo $name; ?>
+                            </label>
+                          </div>
+                        </li>
+                        <?php
+                      }
+                     ?>  
+                </ul>
+           </div>
+          </div>
+        <!-- Фамилия - filter end-->
+
+        <!-- Класс - filter begin-->
+          <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 form-group">
+            <label class="control-label">Класс</label>
+            <div class="has-feedback multi-select"> 
+              <input type="text" class="form-control" id="surname_select" readonly="readonly" placeholder="Выбрать">
+              <span class="fa fa-bell form-control-feedback right" aria-hidden="true"></span>
+
+               <ul class="select-block">
+                    <li class="all">
+                     <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="all"> Все
+                      </label>
+                    </div>
+                    </li>
+                    <?php 
+                      for ($i=1;$i<=11;$i++)
+                      {
+                        ?>
+                         <li>
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="class_number" value="<?php echo $i; ?>" data-name="<?php echo $i; ?>"><?php echo $i; ?>
+                            </label>
+                          </div>
+                        </li>
+                        <?php
+                      }
+                     ?>  
+                </ul>
+           </div>
+          </div>
+        <!-- Класс - filter end-->
+
+      <!-- Посещал - filter begin-->
+          <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 form-group">
+            <label class="control-label">Посещал</label>
+            <div class="has-feedback multi-select"> 
+              <input type="text" class="form-control" id="surname_select" readonly="readonly" placeholder="Выбрать">
+              <span class="fa fa-star form-control-feedback right" aria-hidden="true"></span>
+
+               <ul class="select-block">
+
+                    <li class="all">
+                     <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="all"> Все
+                      </label>
+                    </div>
+                    </li>
+
+                     <li>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="attend" value="0" data-name="нет"><i class="fa fa-star-o"></i> нет
+                        </label>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="attend" value="1" data-name="да"><i class="fa fa-star"></i> да
+                        </label>
+                      </div>
+                    </li>
+
+                </ul>
+           </div>
+          </div>
+        <!-- Посещал - filter end-->
+
+      <!-- Статус - filter begin-->
+          <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 form-group">
+            <label class="control-label">Статус</label>
+            <div class="has-feedback multi-select"> 
+              <input type="text" class="form-control" id="surname_select" readonly="readonly" placeholder="Выбрать">
+              <span class="fa fa-adjust form-control-feedback right" aria-hidden="true"></span>
+
+               <ul class="select-block">
+                    <li class="all">
+                     <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="all"> Все
+                      </label>
+                    </div>
+                    </li>
+                    <?php 
+                     $request_status=get_request_status();
+                      for ($i=0;$i<count($request_status);$i++)
+                      {
+                        ?>
+                         <li>
+                          <div class="checkbox">
+                            <label>
+                            <input type="checkbox" name="id_request_status" value="<?php echo $request_status[$i]['id_request_status']; ?>" data-name="<?php echo $request_status[$i][request_status]; ?>">
+                            <i class="fa fa-star-o" style="color:<?php echo $request_status[$i]['color'];?>"></i>
+                            <?php echo $request_status[$i][request_status]; ?>
+                            </label>
+                          </div>
+                        </li>
+                        <?php
+                      }
+                     ?>  
+                </ul>
+           </div>
+          </div>
+        <!-- Статус - filter end-->
+
+       <!-- Направление - filter begin-->
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 form-group">
+            <label class="control-label">Направление/ курс</label>
+            <div class="has-feedback multi-select"> 
+              <input type="text" class="form-control" id="surname_select" readonly="readonly" placeholder="Выбрать">
+              <span class="fa fa fa-bookmark form-control-feedback right" aria-hidden="true"></span>
+
+               <ul class="select-block">
+                    <?php 
+                      //суммируем все направления ШКОЛА+УГЛУБЛЕННОЕ ИЗЧЕНИЕ ПРЕДМЕТОВ
+                      $direction=array_merge(get_all_direction(0),get_all_direction(1));
+
+                      for ($i=0;$i<count($direction);$i++)
+                      {
+                        ?>
+                        <li class="all">
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" id="all" data-id="<?php echo $direction[$i]['id_directions'];?>" value="<?php echo $direction[$i]['id_directions']; ?>"><?php echo $direction[$i]['name_of_directions']; ?>
+                            </label>
+                          </div>
+                        </li>
+                        <?php $courses=get_courses_of_direction($direction[$i]['id_directions']);
+                        for ($k=0;$k<count($courses);$k++)
+                        {
+                          ?>
+                          <li>
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="id_courses" data-id="<?php echo $direction[$i]['id_directions'];?>" value="<?php echo $courses[$k]['id_courses']; ?>" data-name="<?php echo $courses[$k]['name_of_course']; ?>"><?php echo $courses[$k]['name_of_course']; ?>
+                            </label>
+                          </div> 
+                        </li>
+                          <?php
+                        }
+                      }
+                     ?>  
+                </ul>
+           </div>
+          </div>
+        <!-- Направление - filter end-->
+
+
+        <button type="button" class="btn btn-success btn-sm pull-right" style="margin-top:10px" onclick="get_data_by_filter()">Применить</button>
+      </div><!--x-content-->
+
+      </div><!--x-panel -->
+ </div>

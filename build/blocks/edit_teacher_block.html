@@ -1,0 +1,136 @@
+<!-- Modal Модальное окно для редактирования данных -->
+<div class="modal fade bs-example-modal-lg" id="edit_modal_block" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-edit"></i> Редактировать запись</h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <!--form student begin -->
+          <form id="add_teacher"  class="form-horizontal form-label-left"><!--data-parsley-validate-->
+            
+            <input type="hidden" name="id_teachers" value="">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              
+              <!--x-panel-->
+              <div class="x_panel">
+                
+                <div class="x_title"><!--x-title-->
+                 Преподаватель
+                  <div class="clearfix"></div>
+                </div><!--x-title-->
+               
+
+                 <div class="x_content"><!--x_content-->
+                
+                  <!--photo-block-->
+                  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div id="photo_block">
+                      <div id="myphoto">
+                        <img src="images/people-icon.png"  class="img-responsive">
+                      </div>
+                      
+                      <div id="photo_message" onclick="add_photo_of_user('img_of_user','#myphoto')" style="text-align: center;">
+                        <i class="fa fa-camera" aria-hidden="true" style="margin-right:5px;"></i>
+                        изменить
+                      </div>
+                      <input type="file" name="img_of_user"> 
+                    </div>
+                  </div><!--photo-block-->
+                
+                  <!--Поля преподавателя-->
+                  <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 form-group-h50">
+                    <!--Фамилия-->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                      <input type="text" class="form-control has-feedback-left" required="required" name="surname" placeholder="Фамилия">
+                      <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                    <!--Имя-->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                      <input type="text" class="form-control has-feedback-left" required="required" name="name" placeholder="Имя">
+                      <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                    <!--Отчество-->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                      <input type="text" class="form-control has-feedback-left" name="patronymic" placeholder="Отчество">
+                      <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                    <!--Пол-->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group select_class">
+                       <label class="control-label col-lg-4 col-md-4 col-sm-4 col-xs-12" style="padding: 0px;text-align: right; padding-top: 10px;">
+                       Пол
+                       </label>
+                       <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="padding-right: 0px;">
+                          <p>                                
+                            <div>
+                              <span>М</span> <input type="radio" class="flat" name="gender" value="1" checked/>
+                            </div>
+
+                            <div>
+                              <span>Ж</span> <input type="radio" class="flat" name="gender" value="0" />
+                            </div>
+                          </p>  
+                        </div>
+                    </div>
+
+                     <!--Дата рождения-->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                      <input type="date" class="date form-control has-feedback-left"  name="birth" required="required"  placeholder="Дата рождения" style="padding-right: 5px;">
+                      <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                    <!--Email-->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback item form-group">
+                      <input id="email"  type="email" class="form-control has-feedback-left"name="email" required="required" placeholder="email" > 
+                      <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                   <!--Телефон-->
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group has-feedback">
+                    <input type="text" class="form-control has-feedback-left" name="phone" required="required" placeholder="Телефон" data-parsley-pattern="8\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}" data-inputmask="'mask' : '8 (999) 999-99-99'">
+                    <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+                  </div>
+
+                  <!--Адрес-->
+                   <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 form-group has-feedback">
+                    <input type="text" class="form-control has-feedback-left" name="adress" required="required"  placeholder="Адрес">
+                    <span class="fa fa-building-o form-control-feedback left" aria-hidden="true"></span>
+                  </div>
+
+                </div>
+                <!--Поля студента-->                
+            </div><!--x_content-->
+            </div> <!--x-panel-->
+          </div>
+       
+          </form> <!--form student end -->
+        
+          <div class="col-lg-12 col-md-12 col-ms-12 col-xs-12">
+            <div class="x_panel">
+               <div class="x_title">
+                  Комментарий
+                  <div class="clearfix"></div>
+                </div>
+
+               <div class="x_content">
+                <textarea class="form-control" name="note" style="margin-bottom: 10px;"></textarea>
+               </div>
+            </div>
+          </div>
+          
+          </div>
+      </div><!-- modal-body-->
+
+      <div class="modal-footer">
+        <span  class="btn btn-primary" onclick="update_teacher()">Сохранить изменения</span> 
+      </div>
+    </div>
+  </div>
+</div>
