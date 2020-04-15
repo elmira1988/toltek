@@ -38,9 +38,9 @@ function filter_data()
 {
 	var arr={};
 
-	$("#filter-block").find("[name='id_students']:checked,[name='class_number']:checked,[name='id_groups']:checked").each(function(){
+	$("#filter-block").find("[name='id_students']:checked,[name='class_number']:checked,[name='id_groups']:checked,[name='id_roles']").each(function(){
 		let name=$(this).attr("name");
-		let val=$(this).val();
+		let val=$(this).val(); 
 
 		if (!(name in arr))
 		{
