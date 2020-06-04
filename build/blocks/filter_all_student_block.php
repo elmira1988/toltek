@@ -94,7 +94,10 @@
                     
                     for ($i=0;$i<count($direction);$i++)
                     {
-                      $groups=get_groups(array("id_directions" => array($direction[$i]["id_directions"])));
+                      
+                      {
+                        $groups=get_groups(array("id_directions" => array($direction[$i]["id_directions"])));
+                      }
                       $add="";
                       if (count($groups)==0) $add=" <i>(нет групп)</i>";
                       ?>

@@ -149,36 +149,37 @@ $(document).ready(function(){
               val:JSON.stringify(user)
             },
             function(data){
-                          console.log(data);
-                          //console.log(user);
-                          if (data)
-                          {
-                            navigateTo(curIndex() + 1);//Проверка на ошибки
-                            $(".actionBar").find(".buttonNext").click();//Отображение сообщения
-                            
-                            $.post("/build/php/send_mail.php", 
-                              {val:JSON.stringify(user),
-                               id_requests:data, 
-                                for_email:'user'},function(info){
-                                  console.log(info);
-                                }); 
-                            
-                            $.post("/build/php/send_mail.php", 
-                              {val:JSON.stringify(user),
-                                for_email:'admin'},function(info){
-                                  console.log(info);
-                                }); 
+                            console.log(data);
+                            result = JSON.parse(data);
+                            console.log(result); 
+                            if (result.status == 'ok')
+                            {
+                              navigateTo(curIndex() + 1);//Проверка на ошибки
+                              $(".actionBar").find(".buttonNext").click();//Отображение сообщения
                               
-                          } 
-                          else
-                          {
-                            new PNotify({
-                              title: 'Ошибка',
-                              text: 'Произошла ошибка при работе с базой данных',
-                              type: 'error',
-                              styling: 'bootstrap3'
-                                });
-                          }
+                              $.post("/build/php/send_mail.php", 
+                                {val:JSON.stringify(user),
+                                 id_requests:data, 
+                                  for_email:'user'},function(info){
+                                    console.log(info);
+                                  }); 
+                              
+                              $.post("/build/php/send_mail.php", 
+                                {val:JSON.stringify(user),
+                                  for_email:'admin'},function(info){
+                                    console.log(info);
+                                  }); 
+                                
+                            } 
+                            else
+                            {
+                              new PNotify({
+                                title: 'Внимание!',
+                                text: result.message,
+                                type: 'error',
+                                styling: 'bootstrap3'
+                                  }); 
+                            } 
                           }
             ) 
           }
